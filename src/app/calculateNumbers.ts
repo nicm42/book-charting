@@ -1,10 +1,36 @@
 import showCharts from './showCharts';
 import IDataToSend from '../interfaces/IDataToSend';
 import IBooks from '../interfaces/IBooks';
+import ITypes from '../interfaces/ITypes';
 
 const calculateNumbers = (data: IDataToSend[]) => {
+  // Find the list of years
   const years: string[] = data.map((element) => element.sheet);
 
+  // Find the list of types
+  let typesArr: string[] = [];
+  data.forEach((year) => {
+    year.data.forEach((item, index) => {
+      if (index !== 0) {
+        typesArr.push(item[2]);
+      }
+    });
+  });
+  const typesSet: Set<string> = new Set(typesArr);
+  const types: string[] = Array.from(typesSet);
+
+  // Find the list of categories
+  let categoryArr: string[] = [];
+  data.forEach((year) => {
+    year.data.forEach((item, index) => {
+      if (index !== 0) {
+        categoryArr.push(item[3]);
+      }
+    });
+  });
+  const categories: Set<string> = new Set(categoryArr);
+
+  // Calculate the total acquired per year
   let totalAcquiredPerYear: IBooks = Object.fromEntries(
     years.map((year) => [year, []])
   );
@@ -17,6 +43,7 @@ const calculateNumbers = (data: IDataToSend[]) => {
     });
   });
 
+  // Calculate the total read per year
   let totalReadPerYear: IBooks = Object.fromEntries(
     years.map((year) => [year, []])
   );
@@ -29,7 +56,54 @@ const calculateNumbers = (data: IDataToSend[]) => {
     });
   });
 
-  showCharts(years, totalAcquiredPerYear, totalReadPerYear);
+  // Calculate the total acquired per type per year
+  let typesAcquiredPerYear: ITypes = Object.fromEntries(
+    years.map((year) => [
+      year,
+      Object.fromEntries(types.map((type) => [type, 0])),
+    ])
+  );
+
+  data.forEach((year) => {
+    year.data.forEach((item, index) => {
+      if (index !== 0 && item[0]) {
+        for (const type of types) {
+          if (type === item[2]) {
+            typesAcquiredPerYear[year.sheet][type] += 1;
+          }
+        }
+      }
+    });
+  });
+
+  // Calculate the total read per type per year
+  let typesReadPerYear: ITypes = Object.fromEntries(
+    years.map((year) => [
+      year,
+      Object.fromEntries(types.map((type) => [type, 0])),
+    ])
+  );
+
+  data.forEach((year) => {
+    year.data.forEach((item, index) => {
+      if (index !== 0 && item[1]) {
+        for (const type of types) {
+          if (type === item[2]) {
+            typesReadPerYear[year.sheet][type] += 1;
+          }
+        }
+      }
+    });
+  });
+
+  showCharts(
+    years,
+    types,
+    totalAcquiredPerYear,
+    totalReadPerYear,
+    typesAcquiredPerYear,
+    typesReadPerYear
+  );
 };
 
 export default calculateNumbers;
