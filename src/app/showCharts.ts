@@ -1,30 +1,12 @@
-import Chart from 'chart.js/auto';
+import IBooks from '../interfaces/IBooks';
+import acquireReadChart from './charts/acquireReadChart';
 
 const showCharts = (
   years: string[],
-  totalAcquiredPerYear: string[][][],
-  totalReadPerYear: string[][][]
+  totalAcquiredPerYear: IBooks,
+  totalReadPerYear: IBooks
 ) => {
-  const acquiredElement: HTMLCanvasElement | null =
-    document.querySelector('.acquired');
-  if (acquiredElement) {
-    new Chart(acquiredElement, {
-      type: 'bar',
-      data: {
-        labels: years,
-        datasets: [
-          {
-            label: 'Acquired',
-            data: totalAcquiredPerYear.map((book) => book.length),
-          },
-          {
-            label: 'Read',
-            data: totalReadPerYear.map((book) => book.length),
-          },
-        ],
-      },
-    });
-  }
+  acquireReadChart(years, totalAcquiredPerYear, totalReadPerYear);
 };
 
 export default showCharts;

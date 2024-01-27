@@ -1,23 +1,34 @@
 import showCharts from './showCharts';
 import IDataToSend from '../interfaces/IDataToSend';
+import IBooks from '../interfaces/IBooks';
 
 const calculateNumbers = (data: IDataToSend[]) => {
   const years: string[] = data.map((element) => element.sheet);
-  const totalAcquiredPerYear: string[][][] = data.map((year) =>
-    year.data.filter((item, index) => {
+
+  let totalAcquiredPerYear: IBooks = Object.fromEntries(
+    years.map((year) => [year, []])
+  );
+
+  data.forEach((year) => {
+    year.data.forEach((item, index) => {
       if (index !== 0 && item[0]) {
-        return item[0];
+        totalAcquiredPerYear[year.sheet].push(item[0]);
       }
-    })
+    });
+  });
+
+  let totalReadPerYear: IBooks = Object.fromEntries(
+    years.map((year) => [year, []])
   );
-  const totalReadPerYear: string[][][] = data.map((year) =>
-    year.data.filter((item, index) => {
+
+  data.forEach((year) => {
+    year.data.forEach((item, index) => {
       if (index !== 0 && item[1]) {
-        return item[1];
+        totalReadPerYear[year.sheet].push(item[1]);
       }
-    })
-  );
-  console.log(totalAcquiredPerYear);
+    });
+  });
+
   showCharts(years, totalAcquiredPerYear, totalReadPerYear);
 };
 
