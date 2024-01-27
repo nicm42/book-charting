@@ -28,7 +28,8 @@ const calculateNumbers = (data: IDataToSend[]) => {
       }
     });
   });
-  const categories: Set<string> = new Set(categoryArr);
+  const categoriesSet: Set<string> = new Set(categoryArr);
+  const categories: string[] = Array.from(categoriesSet);
 
   // Calculate the total acquired per year
   let totalAcquiredPerYear: IBooks = Object.fromEntries(
@@ -96,13 +97,56 @@ const calculateNumbers = (data: IDataToSend[]) => {
     });
   });
 
+  // Calculate the total acquired per category per year
+  let categoriesAcquiredPerYear: ITypes = Object.fromEntries(
+    years.map((year) => [
+      year,
+      Object.fromEntries(categories.map((category) => [category, 0])),
+    ])
+  );
+
+  data.forEach((year) => {
+    year.data.forEach((item, index) => {
+      if (index !== 0 && item[0]) {
+        for (const category of categories) {
+          if (category === item[3]) {
+            categoriesAcquiredPerYear[year.sheet][category] += 1;
+          }
+        }
+      }
+    });
+  });
+
+  // Calculate the total read per category per year
+  let categoriesReadPerYear: ITypes = Object.fromEntries(
+    years.map((year) => [
+      year,
+      Object.fromEntries(categories.map((category) => [category, 0])),
+    ])
+  );
+
+  data.forEach((year) => {
+    year.data.forEach((item, index) => {
+      if (index !== 0 && item[1]) {
+        for (const category of categories) {
+          if (category === item[3]) {
+            categoriesReadPerYear[year.sheet][category] += 1;
+          }
+        }
+      }
+    });
+  });
+
   showCharts(
     years,
     types,
+    categories,
     totalAcquiredPerYear,
     totalReadPerYear,
     typesAcquiredPerYear,
-    typesReadPerYear
+    typesReadPerYear,
+    categoriesAcquiredPerYear,
+    categoriesReadPerYear
   );
 };
 
