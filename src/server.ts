@@ -1,3 +1,4 @@
+import IDataToSend from './interfaces/IDataToSend';
 import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -19,11 +20,6 @@ interface SheetData {
 
 interface IData {
   sheets: SheetData[];
-}
-
-interface IDataToSend {
-  sheet: string;
-  data: string[];
 }
 
 // Get the sheet names
