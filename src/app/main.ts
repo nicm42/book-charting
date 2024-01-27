@@ -3,7 +3,11 @@ import Chart from 'chart.js/auto';
 import IDataToSend from '../interfaces/IDataToSend';
 import data from '../../data.json';
 
-const showCharts = (years: string[], totalAcquiredPerYear: string[][][]) => {
+const showCharts = (
+  years: string[],
+  totalAcquiredPerYear: string[][][],
+  totalReadPerYear: string[][][]
+) => {
   const acquiredElement: HTMLCanvasElement | null =
     document.querySelector('.acquired');
   if (acquiredElement) {
@@ -15,6 +19,10 @@ const showCharts = (years: string[], totalAcquiredPerYear: string[][][]) => {
           {
             label: 'Acquired by year',
             data: totalAcquiredPerYear.map((book) => book.length),
+          },
+          {
+            label: 'Read by year',
+            data: totalReadPerYear.map((book) => book.length),
           },
         ],
       },
@@ -31,7 +39,14 @@ const calculateNumbers = () => {
       }
     })
   );
-  showCharts(years, totalAcquiredPerYear);
+  const totalReadPerYear: string[][][] = data.map((year) =>
+    year.data.filter((item, index) => {
+      if (index !== 0 && item[1]) {
+        return item[1];
+      }
+    })
+  );
+  showCharts(years, totalAcquiredPerYear, totalReadPerYear);
 };
 
 const getData = async () => {
