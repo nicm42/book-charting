@@ -1,141 +1,36 @@
 import showCharts from './showCharts';
 import IDataToSend from '../interfaces/IDataToSend';
-import IBooks from '../interfaces/IBooks';
-import ITypes from '../interfaces/ITypes';
+import findList from './utils/findList';
+import findTotal from './utils/findTotal';
+import findTotalList from './utils/findTotalList';
 
 const calculateNumbers = (data: IDataToSend[]) => {
   // Find the list of years
   const years: string[] = data.map((element) => element.sheet);
 
   // Find the list of types
-  let typesArr: string[] = [];
-  data.forEach((year) => {
-    year.data.forEach((item, index) => {
-      if (index !== 0) {
-        typesArr.push(item[2]);
-      }
-    });
-  });
-  const typesSet: Set<string> = new Set(typesArr);
-  const types: string[] = Array.from(typesSet);
+  const types = findList(data, 2);
 
   // Find the list of categories
-  let categoryArr: string[] = [];
-  data.forEach((year) => {
-    year.data.forEach((item, index) => {
-      if (index !== 0) {
-        categoryArr.push(item[3]);
-      }
-    });
-  });
-  const categoriesSet: Set<string> = new Set(categoryArr);
-  const categories: string[] = Array.from(categoriesSet);
+  const categories = findList(data, 3);
 
   // Calculate the total acquired per year
-  let totalAcquiredPerYear: IBooks = Object.fromEntries(
-    years.map((year) => [year, []])
-  );
-
-  data.forEach((year) => {
-    year.data.forEach((item, index) => {
-      if (index !== 0 && item[0]) {
-        totalAcquiredPerYear[year.sheet].push(item[0]);
-      }
-    });
-  });
+  const totalAcquiredPerYear = findTotal(data, years, 0);
 
   // Calculate the total read per year
-  let totalReadPerYear: IBooks = Object.fromEntries(
-    years.map((year) => [year, []])
-  );
-
-  data.forEach((year) => {
-    year.data.forEach((item, index) => {
-      if (index !== 0 && item[1]) {
-        totalReadPerYear[year.sheet].push(item[1]);
-      }
-    });
-  });
+  const totalReadPerYear = findTotal(data, years, 1);
 
   // Calculate the total acquired per type per year
-  let typesAcquiredPerYear: ITypes = Object.fromEntries(
-    years.map((year) => [
-      year,
-      Object.fromEntries(types.map((type) => [type, 0])),
-    ])
-  );
-
-  data.forEach((year) => {
-    year.data.forEach((item, index) => {
-      if (index !== 0 && item[0]) {
-        for (const type of types) {
-          if (type === item[2]) {
-            typesAcquiredPerYear[year.sheet][type] += 1;
-          }
-        }
-      }
-    });
-  });
+  const typesAcquiredPerYear = findTotalList(data, years, 0, 2);
 
   // Calculate the total read per type per year
-  let typesReadPerYear: ITypes = Object.fromEntries(
-    years.map((year) => [
-      year,
-      Object.fromEntries(types.map((type) => [type, 0])),
-    ])
-  );
-
-  data.forEach((year) => {
-    year.data.forEach((item, index) => {
-      if (index !== 0 && item[1]) {
-        for (const type of types) {
-          if (type === item[2]) {
-            typesReadPerYear[year.sheet][type] += 1;
-          }
-        }
-      }
-    });
-  });
+  const typesReadPerYear = findTotalList(data, years, 1, 2);
 
   // Calculate the total acquired per category per year
-  let categoriesAcquiredPerYear: ITypes = Object.fromEntries(
-    years.map((year) => [
-      year,
-      Object.fromEntries(categories.map((category) => [category, 0])),
-    ])
-  );
-
-  data.forEach((year) => {
-    year.data.forEach((item, index) => {
-      if (index !== 0 && item[0]) {
-        for (const category of categories) {
-          if (category === item[3]) {
-            categoriesAcquiredPerYear[year.sheet][category] += 1;
-          }
-        }
-      }
-    });
-  });
+  const categoriesAcquiredPerYear = findTotalList(data, years, 0, 3);
 
   // Calculate the total read per category per year
-  let categoriesReadPerYear: ITypes = Object.fromEntries(
-    years.map((year) => [
-      year,
-      Object.fromEntries(categories.map((category) => [category, 0])),
-    ])
-  );
-
-  data.forEach((year) => {
-    year.data.forEach((item, index) => {
-      if (index !== 0 && item[1]) {
-        for (const category of categories) {
-          if (category === item[3]) {
-            categoriesReadPerYear[year.sheet][category] += 1;
-          }
-        }
-      }
-    });
-  });
+  const categoriesReadPerYear = findTotalList(data, years, 1, 3);
 
   showCharts(
     years,
