@@ -1,20 +1,31 @@
 import Chart from 'chart.js/auto';
 import ITypes from '../../interfaces/ITypes';
+import createNoDataText from '../utils/createNoDataText';
+import createHeading from '../utils/createHeading';
+import createCanvas from '../utils/createCanvas';
 
-const categoryAcquiredChart = (
+const categoryChart = (
   categories: string[],
   categoriesPerYear: ITypes,
   element: HTMLDivElement,
   label: string
 ) => {
   Object.keys(categoriesPerYear).forEach((year) => {
-    const heading = document.createElement('h3');
-    heading.innerHTML = year;
-    element.appendChild(heading);
+    createHeading(element, year);
 
-    const canvas = document.createElement('canvas');
-    canvas.setAttribute('class', year);
-    element.appendChild(canvas);
+    const categoryArray = Object.values(categoriesPerYear[year]);
+
+    const categorySum = categoryArray.reduce(
+      (total, current) => total + current,
+      0
+    );
+
+    if (categorySum === 0) {
+      createNoDataText(element);
+      return;
+    }
+
+    const canvas = createCanvas(element, year);
 
     new Chart(canvas, {
       type: 'pie',
@@ -23,7 +34,7 @@ const categoryAcquiredChart = (
         datasets: [
           {
             label: label,
-            data: Object.values(categoriesPerYear[year]),
+            data: categoryArray,
           },
         ],
       },
@@ -31,4 +42,4 @@ const categoryAcquiredChart = (
   });
 };
 
-export default categoryAcquiredChart;
+export default categoryChart;
