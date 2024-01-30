@@ -33,7 +33,6 @@ const categoryChart = (
         labels: categories,
         datasets: [
           {
-            label: label,
             data: categoryArray,
           },
         ],

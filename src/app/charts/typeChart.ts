@@ -33,7 +33,6 @@ const typeChart = (
         labels: types,
         datasets: [
           {
-            label: label,
             data: Object.values(typesPerYear[year]),
           },
         ],
