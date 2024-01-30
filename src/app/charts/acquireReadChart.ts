@@ -6,8 +6,9 @@ const acquireReadChart = (
   totalAcquiredPerYear: IBooks,
   totalReadPerYear: IBooks
 ) => {
-  const acquiredReadElement: HTMLCanvasElement | null =
-    document.querySelector('.acquired-read');
+  const acquiredReadElement: HTMLCanvasElement | null = document.querySelector(
+    '.acquired-read canvas'
+  );
   if (acquiredReadElement) {
     new Chart(acquiredReadElement, {
       type: 'bar',
