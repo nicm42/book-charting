@@ -31,7 +31,8 @@ p {
   text-align: center;
 }
 
-div {
+.acquired-read,
+.pie-charts.types {
   margin-bottom: 6rem;
 }
 
