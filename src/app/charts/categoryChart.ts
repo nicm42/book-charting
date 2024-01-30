@@ -7,8 +7,7 @@ import createCanvas from '../utils/createCanvas';
 const categoryChart = (
   categories: string[],
   categoriesPerYear: ITypes,
-  element: HTMLDivElement,
-  label: string
+  element: HTMLDivElement
 ) => {
   Object.keys(categoriesPerYear).forEach((year) => {
     createHeading(element, year);

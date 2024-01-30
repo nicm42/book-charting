@@ -21,19 +21,14 @@ const showCharts = (
   const typeAcquiredElement: HTMLDivElement | null =
     document.querySelector('.typeAcquired');
   if (typeAcquiredElement) {
-    typeChart(
-      types,
-      typesAcquiredPerYear,
-      typeAcquiredElement,
-      'Types Acquired'
-    );
+    typeChart(types, typesAcquiredPerYear, typeAcquiredElement);
   }
 
   // Types read per year
   const typeReadElement: HTMLDivElement | null =
     document.querySelector('.typeRead');
   if (typeReadElement) {
-    typeChart(types, typesReadPerYear, typeReadElement, 'Types Read');
+    typeChart(types, typesReadPerYear, typeReadElement);
   }
 
   // Categories acquired per year
@@ -43,8 +38,7 @@ const showCharts = (
     categoryChart(
       categories,
       categoriesAcquiredPerYear,
-      categoriesAcquiredElement,
-      'Categories Acquired'
+      categoriesAcquiredElement
     );
   }
 
@@ -52,12 +46,7 @@ const showCharts = (
   const categoriesReadElement: HTMLDivElement | null =
     document.querySelector('.categoriesRead');
   if (categoriesReadElement) {
-    categoryChart(
-      categories,
-      categoriesReadPerYear,
-      categoriesReadElement,
-      'Categories Read'
-    );
+    categoryChart(categories, categoriesReadPerYear, categoriesReadElement);
   }
 };
 

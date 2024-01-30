@@ -7,8 +7,7 @@ import createCanvas from '../utils/createCanvas';
 const typeChart = (
   types: string[],
   typesPerYear: ITypes,
-  element: HTMLDivElement,
-  label: string
+  element: HTMLDivElement
 ) => {
   Object.keys(typesPerYear).forEach((year) => {
     createHeading(element, year);
