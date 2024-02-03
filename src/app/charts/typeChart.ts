@@ -1,4 +1,5 @@
 import Chart from 'chart.js/auto';
+import pattern from 'patternomaly';
 import ITypes from '../../interfaces/ITypes';
 import createNoDataText from '../utils/createNoDataText';
 import createHeading from '../utils/createHeading';
@@ -33,6 +34,10 @@ const typeChart = (
         datasets: [
           {
             data: Object.values(typesPerYear[year]),
+            backgroundColor: [
+              pattern.draw('square', '#36a2eb'),
+              pattern.draw('diagonal', '#ff6384'),
+            ],
           },
         ],
       },

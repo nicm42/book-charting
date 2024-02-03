@@ -1,4 +1,5 @@
 import Chart from 'chart.js/auto';
+import pattern from 'patternomaly';
 import IBooks from '../../interfaces/IBooks';
 
 const acquireReadChart = (
@@ -20,10 +21,12 @@ const acquireReadChart = (
             data: Object.values(totalAcquiredPerYear).map(
               (value) => value.length
             ),
+            backgroundColor: pattern.generate(['#9ad0f0']),
           },
           {
             label: 'Read',
             data: Object.values(totalReadPerYear).map((value) => value.length),
+            backgroundColor: pattern.generate(['#ffb1c1']),
           },
         ],
       },
