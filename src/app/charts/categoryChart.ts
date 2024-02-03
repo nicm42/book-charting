@@ -13,6 +13,14 @@ const categoryChart = (
   Object.keys(categoriesPerYear).forEach((year) => {
     createHeading(element, year);
 
+    // Get just the categories with at least one entry in the data
+    const categoriesUsed = Object.fromEntries(
+      Object.entries(categoriesPerYear[year]).filter(
+        ([_key, value]) => value > 0
+      )
+    );
+    const categoriesUsedArray = Object.keys(categoriesUsed);
+
     const categoryArray = Object.values(categoriesPerYear[year]);
 
     const categorySum = categoryArray.reduce(
@@ -59,6 +67,18 @@ const categoryChart = (
             ],
           },
         ],
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              filter: function (legendItem) {
+                return categoriesUsedArray.indexOf(legendItem.text) !== -1;
+              },
+            },
+          },
+        },
       },
     });
   });
