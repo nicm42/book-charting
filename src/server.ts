@@ -44,15 +44,13 @@ app.get('/api', async (_req: Request, res: Response) => {
   res.send(dataToSend);
 });
 
-if (process.env.NODE_ENV === 'production') {
-  // Serve app production bundle
-  app.use(express.static('dist/app'));
+// Serve app production bundle
+app.use(express.static('dist/app'));
 
-  // Handle client routing, return all requests to the app
-  app.get('*', (_req, res) => {
-    res.sendFile(path.join(__dirname, 'app/index.html'));
-  });
-}
+// Handle client routing, return all requests to the app
+app.get('*', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'app/index.html'));
+});
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
