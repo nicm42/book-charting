@@ -1,0 +1,159 @@
+:root {
+  --accent-colour: #137abe;
+  --background-colour: #ffffff;
+  --font-colour: #213547;
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: var(--font-colour);
+  background-color: var(--background-colour);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --accent-colour: #36a2eb;
+    --background-colour: rgba(255, 255, 255, 0.87);
+    --font-colour: #242424;
+  }
+}
+
+h1 {
+  font-size: 4rem;
+  text-align: center;
+}
+
+h2,
+h3,
+p {
+  text-align: center;
+}
+
+.acquired-read,
+.pie-charts.types {
+  margin-bottom: 6rem;
+}
+
+canvas {
+  max-height: 75vh;
+  max-width: 100vw;
+}
+
+.error {
+  display: none;
+  font-size: 2rem;
+}
+
+.chart-heading {
+  display: none;
+}
+
+@media (min-width: 850px) {
+  .pie-charts.types {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+  }
+
+  .pie-charts.types canvas {
+    max-width: 400px;
+    max-height: 100%;
+  }
+}
+
+@media (min-width: 1050px) {
+  .pie-charts.categories {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+  }
+
+  .pie-charts.categories canvas {
+    max-width: 500px;
+    max-height: 100%;
+  }
+}
+
+/* Loading text and animation */
+.loading {
+  color: var(--accent-colour);
+  font-size: 2rem;
+}
+
+.loading span {
+  margin-left: 0.25em;
+  opacity: 0;
+}
+
+.loading span:first-of-type {
+  animation: letter-reveal-1 6s linear infinite;
+}
+
+.loading span:nth-of-type(2) {
+  animation: letter-reveal-2 6s linear infinite;
+}
+
+.loading span:last-of-type {
+  animation: letter-reveal-3 6s linear infinite;
+}
+
+@keyframes letter-reveal-1 {
+  0% {
+    opacity: 0;
+  }
+  17% {
+    opacity: 1;
+  }
+  83% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes letter-reveal-2 {
+  0% {
+    opacity: 0;
+  }
+  17% {
+    opacity: 0;
+  }
+  33% {
+    opacity: 1;
+  }
+  67% {
+    opacity: 1;
+  }
+  83% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes letter-reveal-3 {
+  0% {
+    opacity: 0;
+  }
+  33% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  67% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,13 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Book Charting</title>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
+    <h1>Book Charts</h1>
+    <div id="app">
+      <p class="loading">Loading<span>.</span><span>.</span><span>.</span></p>
+      <p class="error">Something has gone wrong :(</p>
+
+      <div class="acquired-read">
+        <h2 class="chart-heading">Books acquired and read</h2>
+        <canvas></canvas>
+      </div>
+
+      <div class="pie-charts types">
+        <div class="typeAcquired">
+          <h2 class="chart-heading">Types acquired</h2>
+        </div>
+
+        <div class="typeRead">
+          <h2 class="chart-heading">Types read</h2>
+        </div>
+      </div>
+
+      <div class="pie-charts categories">
+        <div class="categoriesAcquired">
+          <h2 class="chart-heading">Categories acquired</h2>
+        </div>
+
+        <div class="categoriesRead">
+          <h2 class="chart-heading">Categories read</h2>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/app/main.ts"></script>
   </body>
 </html>
