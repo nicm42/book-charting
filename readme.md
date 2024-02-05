@@ -29,7 +29,7 @@ I've been tracking my books acquired and read since 2022, so I thought it would 
 
 ## Setup
 
-To view this project visit the demo TBC or run it locally.
+To view this project visit the [demo](https://book-charting-nm.onrender.com) or run it locally. Note this is hosted on a free tier of Render so will take 30 seconds to start up.
 
 To run it locally, you will need to download the files and create a Google Spreadsheet with the following columns:
 
