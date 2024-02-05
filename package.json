@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
     "client:dev": "vite",
-    "server:dev": "nodemon src/server.ts",
+    "server:dev": "nodemon --esm src/server.ts",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
